@@ -1,0 +1,17 @@
+# OS X
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Compiled Dirs
+public/dist/
+
+# Dotenv
+.env
+
+# Dependency directories
+node_modules/
+
+
