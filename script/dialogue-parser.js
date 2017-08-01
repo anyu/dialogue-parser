@@ -2,12 +2,11 @@ var http = require('http');
 var xml2js = require('xml2js'),
 parser = new xml2js.Parser();
 
-dialogueParser();
+var url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml';
+dialogueParser(url);
 
-
-function dialogueParser() {
-  var url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml';
-
+// Retrieve XML data and convert to JSON
+function dialogueParser(url) {
   http.get(url, (res) => {
     var data = '';
     res.setEncoding('utf8');
@@ -21,7 +20,9 @@ function dialogueParser() {
         } else {
           // var jsonText = JSON.stringify(result); 
           // console.log('JSON result', JSON.stringify(result, null, 2));
-          console.log(result);
+          // console.log(result);
+          var speaker = locateKey(result, 'SPEAKER');
+          console.log(speaker)
         }
       });
     });
@@ -29,4 +30,25 @@ function dialogueParser() {
       console.log(err.message);
     });
   });
+}
+
+
+// Traverse JSON obj and find value by search term
+// eg. grab value of 'SPEAKER'
+function locateKey(jsonObj, searchTerm) {
+  if (typeof(jsonObj) !== 'object') {
+    return null;
+  }
+  var result = null;
+
+  if (jsonObj.hasOwnProperty(searchTerm)) {
+    return jsonObj[searchTerm];
+  } else {
+    for (var key in jsonObj) {
+      result = locateKey(jsonObj[key], searchTerm);
+      if (result === null) continue;
+      else break;
+    }
+  }
+  return result;
 }
