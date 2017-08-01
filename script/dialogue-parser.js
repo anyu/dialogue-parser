@@ -19,7 +19,9 @@ function dialogueParser(url) {
           console.log(err.message);
         } else {
           var listOfSpeeches = locateKey(result, 'SPEECH');          
-          countLinesPerSpeech(listOfSpeeches);
+          var linesPerSpeech = countLinesPerSpeech(listOfSpeeches);
+          var ordered = orderByCount(linesPerSpeech);
+          printToConsole(ordered);
         }
       });
     });
@@ -61,9 +63,9 @@ function countLinesPerSpeech(speech) {
       speechLines[character] = dialogue["LINE"].length;
     }
   });
-  console.log(speechLines);
   return speechLines;
 }
+
 
 /******************************* Utility helper functions ************************/
 
@@ -72,4 +74,21 @@ function toTitleCase(name) {
    .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
    .join(' ')
   return formattedName;
+}
+
+function orderByCount(obj) {
+  var sortable = [];
+  for (var character in obj) {
+    sortable.push([character, obj[character]]);
+  }
+  sortable.sort((a, b) => {
+    return b[1] - a[1];
+  });
+  return sortable;
+}
+
+function printToConsole(arr) {
+  arr.map((pair) => {
+    console.log(pair[1] + ' ' + pair[0]);
+  })
 }
