@@ -18,11 +18,8 @@ function dialogueParser(url) {
         if (err) {
           console.log(err.message);
         } else {
-          // console.log('JSON result', JSON.stringify(result, null, 2));
-          // console.log(result);
-          var speech = locateKey(result, 'SPEECH');          
-          // console.log('Speech: ', speech);
-          countLinesPerSpeech(speech);
+          var listOfSpeeches = locateKey(result, 'SPEECH');          
+          countLinesPerSpeech(listOfSpeeches);
         }
       });
     });
@@ -32,30 +29,29 @@ function dialogueParser(url) {
   });
 }
 
-// Traverse JSON obj and find value by search term
-// eg. grab value of 'SPEECH'
+// Traverse JSON obj and find value by search term. Store results in array.
+// eg. grab values of 'SPEECH'
 function locateKey(jsonObj, searchTerm) {
+  var storage = [];
+
   if (typeof(jsonObj) !== 'object') {
     return null;
   }
-  var result = null;
-
   if (jsonObj.hasOwnProperty(searchTerm)) {
+    storage.push(jsonObj[searchTerm]);
     return jsonObj[searchTerm];
-  } else {
-    for (var key in jsonObj) {
-      result = locateKey(jsonObj[key], searchTerm);
-      if (result === null) continue;
-      else break;
-    }
+  } 
+  for (var key in jsonObj) {
+    storage = storage.concat(locateKey(jsonObj[key], searchTerm));
   }
-  return result;
+  return storage;
 }
 
-// Count number of lines per character in ONE speech chunk
-// a speech chunk ends when the next scene starts
+// Sum up number of lines per character in each speech chunk
 function countLinesPerSpeech(speech) {
+  speech = speech.filter(Boolean);  // remove null values
   var speechLines = {};
+
   speech.map((dialogue) => {
     var character = ''+ dialogue["SPEAKER"];
     if (speechLines[character]) {
@@ -64,10 +60,6 @@ function countLinesPerSpeech(speech) {
       speechLines[character] = dialogue["LINE"].length;
     }
   });
-  console.log(speechLines)
-}
-
-// Sum total of lines per character
-function totalLinesPerCharacter() {
-
+  console.log(speechLines);
+  return speechLines;
 }
