@@ -18,10 +18,7 @@ function dialogueParser(url) {
         if (err) {
           console.log(err.message);
         } else {
-          var listOfSpeeches = locateKey(result, 'SPEECH');          
-          var linesPerSpeech = countLinesPerSpeech(listOfSpeeches);
-          var ordered = orderByCount(linesPerSpeech);
-          printToConsole(ordered);
+          processJSON(result);
         }
       });
     });
@@ -29,6 +26,14 @@ function dialogueParser(url) {
       console.log(err.message);
     });
   });
+}
+
+// Call functions to process JSON data
+function processJSON(jsonData) {
+  var listOfSpeeches = locateKey(jsonData, 'SPEECH');          
+  var linesPerSpeech = countLinesPerSpeech(listOfSpeeches);
+  var ordered = orderByCount(linesPerSpeech);
+  printToConsole(ordered);
 }
 
 // Traverse JSON obj and find value by search term. Store results in array.
