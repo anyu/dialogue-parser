@@ -89,6 +89,8 @@ function orderByCount(obj) {
 
 function printToConsole(arr) {
   arr.map((pair) => {
-    console.log(pair[1] + ' ' + pair[0]);
+    if (pair[0] !== 'All'){  // filter out 'All' speaker
+      console.log(pair[1] + ' ' + pair[0]);
+    }
   })
 }
