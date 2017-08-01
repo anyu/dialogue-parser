@@ -74,6 +74,7 @@ function countLinesPerSpeech(speech) {
 
 /******************************* Utility helper functions ************************/
 
+
 function toTitleCase(name) {
   var formattedName = name.toLowerCase().split(' ')
    .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
@@ -81,6 +82,7 @@ function toTitleCase(name) {
   return formattedName;
 }
 
+// Sort number of lines, descending
 function orderByCount(obj) {
   var sortable = [];
   for (var character in obj) {
