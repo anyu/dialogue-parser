@@ -57,7 +57,7 @@ function locateKey(jsonObj, searchTerm) {
 function countLinesPerSpeech(speech) {
   var speechLines = {};
   speech.map((dialogue) => {
-    var character = ''+ dialogue["c"];
+    var character = ''+ dialogue["SPEAKER"];
     if (speechLines[character]) {
       speechLines[character] += dialogue["LINE"].length;
     } else {
