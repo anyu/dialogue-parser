@@ -54,6 +54,7 @@ function countLinesPerSpeech(speech) {
 
   speech.map((dialogue) => {
     var character = ''+ dialogue["SPEAKER"];
+    character = toTitleCase(character);
     if (speechLines[character]) {
       speechLines[character] += dialogue["LINE"].length;
     } else {
@@ -62,4 +63,13 @@ function countLinesPerSpeech(speech) {
   });
   console.log(speechLines);
   return speechLines;
+}
+
+/******************************* Utility helper functions ************************/
+
+function toTitleCase(name) {
+  var formattedName = name.toLowerCase().split(' ')
+   .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
+   .join(' ')
+  return formattedName;
 }
