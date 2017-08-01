@@ -18,11 +18,11 @@ function dialogueParser(url) {
         if (err) {
           console.log(err.message);
         } else {
-          // var jsonText = JSON.stringify(result); 
           // console.log('JSON result', JSON.stringify(result, null, 2));
           // console.log(result);
-          var speaker = locateKey(result, 'SPEAKER');
-          console.log(speaker)
+          var speech = locateKey(result, 'SPEECH');          
+          // console.log('Speech: ', speech);
+          countLinesPerSpeech(speech);
         }
       });
     });
@@ -32,9 +32,8 @@ function dialogueParser(url) {
   });
 }
 
-
 // Traverse JSON obj and find value by search term
-// eg. grab value of 'SPEAKER'
+// eg. grab value of 'SPEECH'
 function locateKey(jsonObj, searchTerm) {
   if (typeof(jsonObj) !== 'object') {
     return null;
@@ -51,4 +50,24 @@ function locateKey(jsonObj, searchTerm) {
     }
   }
   return result;
+}
+
+// Count number of lines per character in ONE speech chunk
+// a speech chunk ends when the next scene starts
+function countLinesPerSpeech(speech) {
+  var speechLines = {};
+  speech.map((dialogue) => {
+    var character = ''+ dialogue["c"];
+    if (speechLines[character]) {
+      speechLines[character] += dialogue["LINE"].length;
+    } else {
+      speechLines[character] = dialogue["LINE"].length;
+    }
+  });
+  console.log(speechLines)
+}
+
+// Sum total of lines per character
+function totalLinesPerCharacter() {
+
 }
