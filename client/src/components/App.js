@@ -14,6 +14,7 @@ class App extends React.Component {
 
     this.state = {
       inputURL: '',
+      invalidURL: false,
       numLines: ''
     }
     this.submitURL = this.submitURL.bind(this);
@@ -35,8 +36,14 @@ class App extends React.Component {
       res.on('end', () => {
         parser.parseString(data, (err, result) => {
           if (err) {
+            this.setState({
+              invalidURL: true
+            })
             console.log(err.message);
           } else {
+            this.setState({
+              invalidURL: false
+            })
             this.processJSON(result);
           }
         });
@@ -115,9 +122,13 @@ class App extends React.Component {
           <h1>Dialogue Parser</h1>
           <h3>Ever wonder how many lines each character in a Shakespearan play says?</h3>
           <Search submitURL={this.submitURL}/>
+          { this.state.invalidURL ? 
+            <div className="errMsg">Invalid URL format. Please enter a URL starting with http://</div> : null
+          }          
           { this.state.numLines ? 
             <Results numLines={this.state.numLines}/> : null 
           }
+
         </div>
         <Footer/>
       </div>
