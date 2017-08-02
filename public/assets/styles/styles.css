@@ -89,8 +89,13 @@ li {
   margin: 60px auto 60px;
 }
 
-.character, .lineCount {
+.character {
   margin-left: 40px;
+}
+
+.lineCount {
+  margin-left: 40px;
+  font-weight: 900;
 }
 
 .errMsg {

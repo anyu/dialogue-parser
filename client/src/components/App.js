@@ -120,7 +120,7 @@ class App extends React.Component {
           <span className="tinyNav"><a href="https://github.com/anyu/dialogue-parser" target="blank">github</a></span>
         <div className="innerContainer">
           <h1>Dialogue Parser</h1>
-          <h3>Ever wonder how many lines each character in a Shakespearan play says?</h3>
+          <h3>Who talked the most in Shakespearan plays? Find out right now.</h3>
           <Search submitURL={this.submitURL}/>
           { this.state.invalidURL ? 
             <div className="errMsg">Invalid URL format. Please enter a URL starting with http://</div> : null
