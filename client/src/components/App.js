@@ -16,6 +16,7 @@ class App extends React.Component {
       numLines: ''
     }
     this.submitURL = this.submitURL.bind(this);
+    this.convertXMLtoJSON = this.convertXMLtoJSON.bind(this);
     this.processJSON = this.processJSON.bind(this);    
     this.findKey = this.findKey.bind(this);
     this.countLinesPerSpeech = this.countLinesPerSpeech.bind(this);
@@ -25,6 +26,10 @@ class App extends React.Component {
 
   submitURL(url, e) {
     e.preventDefault();
+    this.convertXMLtoJSON(url);
+  }
+
+  convertXMLtoJSON(url) {
     http.get(url, (res) => {
       var data = '';
       res.setEncoding('utf8');
@@ -50,6 +55,15 @@ class App extends React.Component {
         console.log(err.message);
       });
     });
+  }
+
+  processJSON(jsonData) {
+    var listOfSpeeches = this.findKey(jsonData, 'SPEECH');          
+    var linesPerSpeech = this.countLinesPerSpeech(listOfSpeeches);
+    var ordered = this.orderByCount(linesPerSpeech);
+    this.setState({
+      numLines: ordered
+    })
   }
 
   findKey(jsonObj, searchTerm){
@@ -103,15 +117,6 @@ class App extends React.Component {
       return b[1] - a[1];
     });
     return sortable;
-  }
-
-  processJSON(jsonData) {
-    var listOfSpeeches = this.findKey(jsonData, 'SPEECH');          
-    var linesPerSpeech = this.countLinesPerSpeech(listOfSpeeches);
-    var ordered = this.orderByCount(linesPerSpeech);
-    this.setState({
-      numLines: ordered
-    })
   }
 
   render() {

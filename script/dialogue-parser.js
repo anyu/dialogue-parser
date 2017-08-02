@@ -12,6 +12,11 @@ parser = new xml2js.Parser();
 var url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml';
 
 
+// Kick off parsing process
+exports.initiateParse = (url) => {
+  this.convertXMLtoJSON(url);
+}
+
 // Retrieve XML data and convert to JSON
 exports.convertXMLtoJSON = (url) => {
   http.get(url, (res) => {
@@ -33,6 +38,14 @@ exports.convertXMLtoJSON = (url) => {
       console.log(err.message);
     });
   });
+}
+
+// Call functions to process JSON data
+exports.processJSON = (jsonData) => {
+  var listOfSpeeches = this.findKey(jsonData, 'SPEECH');          
+  var linesPerSpeech = this.countLinesPerSpeech(listOfSpeeches);
+  var ordered = this.orderByCount(linesPerSpeech);
+  this.printToConsole(ordered);
 }
 
 // Traverse JSON obj and find value by search term. Store results in array.
@@ -102,13 +115,6 @@ exports.printToConsole = (arr) => {
 }
 
 
-// Call functions to process JSON data
-exports.processJSON = (jsonData) => {
-  var listOfSpeeches = this.findKey(jsonData, 'SPEECH');          
-  var linesPerSpeech = this.countLinesPerSpeech(listOfSpeeches);
-  var ordered = this.orderByCount(linesPerSpeech);
-  this.printToConsole(ordered);
-}
+/******************************* Main ************************/
 
-
-this.convertXMLtoJSON(url);
+this.initiateParse(url);

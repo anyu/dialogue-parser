@@ -1,11 +1,11 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server/server');
-// const should = chai.should();
-const request = require('request');
 const expect = require('chai').expect;
 
+const server = require('../server/server');
+const request = require('request');
 const dialogueParser = require("../script/dialogue-parser");
+
 chai.use(chaiHttp);
 
 
