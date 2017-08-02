@@ -1,3 +1,10 @@
+/*********************************************************************************************
+ 
+Command-line script that prints out the number of lines each character speaks in Macbeth.
+Usage: node script/dialogue-parser.js
+
+/*********************************************************************************************/
+
 var http = require('http');
 var xml2js = require('xml2js'),
 parser = new xml2js.Parser();
@@ -30,7 +37,7 @@ function dialogueParser(url) {
 
 // Call functions to process JSON data
 function processJSON(jsonData) {
-  var listOfSpeeches = locateKey(jsonData, 'SPEECH');          
+  var listOfSpeeches = findKey(jsonData, 'SPEECH');          
   var linesPerSpeech = countLinesPerSpeech(listOfSpeeches);
   var ordered = orderByCount(linesPerSpeech);
   printToConsole(ordered);
@@ -38,7 +45,7 @@ function processJSON(jsonData) {
 
 // Traverse JSON obj and find value by search term. Store results in array.
 // eg. grab values of 'SPEECH'
-function locateKey(jsonObj, searchTerm) {
+function findKey(jsonObj, searchTerm) {
   var storage = [];
 
   if (typeof(jsonObj) !== 'object') {
@@ -49,7 +56,7 @@ function locateKey(jsonObj, searchTerm) {
     return jsonObj[searchTerm];
   } 
   for (var key in jsonObj) {
-    storage = storage.concat(locateKey(jsonObj[key], searchTerm));
+    storage = storage.concat(findKey(jsonObj[key], searchTerm));
   }
   return storage;
 }
@@ -73,7 +80,6 @@ function countLinesPerSpeech(speech) {
 
 
 /******************************* Utility helper functions ************************/
-
 
 function toTitleCase(name) {
   var formattedName = name.toLowerCase().split(' ')

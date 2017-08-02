@@ -6,6 +6,7 @@ class Search extends React.Component {
     super(props);
 
     this.state = {
+      inputURL: ''
     }
     this.captureInput = this.captureInput.bind(this);
   }
