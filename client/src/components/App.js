@@ -1,4 +1,8 @@
 import React from 'react';
+
+import Search from './Search';
+import Results from './Results';
+
 const http = require('http');
 const xml2js = require('xml2js'),
 parser = new xml2js.Parser();
@@ -11,19 +15,12 @@ class App extends React.Component {
       inputURL: '',
       numLines: ''
     }
-    this.captureInput = this.captureInput.bind(this);
     this.submitURL = this.submitURL.bind(this);
     this.processJSON = this.processJSON.bind(this);    
     this.findKey = this.findKey.bind(this);
     this.countLinesPerSpeech = this.countLinesPerSpeech.bind(this);
     this.toTitleCase = this.toTitleCase.bind(this);
     this.orderByCount = this.orderByCount.bind(this);
-  }
-
-  captureInput(e) {
-    this.setState({
-      inputURL: e.target.value
-    });
   }
 
   submitURL(url, e) {
@@ -104,23 +101,18 @@ class App extends React.Component {
     var listOfSpeeches = this.findKey(jsonData, 'SPEECH');          
     var linesPerSpeech = this.countLinesPerSpeech(listOfSpeeches);
     var ordered = this.orderByCount(linesPerSpeech);
-    console.log(ordered)
     this.setState({
       numLines: ordered
     })
   }
 
   render() {
-    console.log('ordered', this.state.numLines)
     return (
       <div className="container">
-        <h1>Dialogue Parser</h1>
-        <div className="form_container">
-          <form onSubmit={(e)=> this.submitURL(this.state.inputURL, e)}>
-            <input type="text" placeholder="http://" onChange={this.captureInput}/>
-            <button>Submit</button>
-          </form>
-        </div>
+        <Search submitURL={this.submitURL}/>
+        { this.state.numLines ? 
+          <Results numLines={this.state.numLines}/> : null 
+        }
       </div>
   )}
 }
