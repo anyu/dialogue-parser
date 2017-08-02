@@ -8,7 +8,7 @@ class Results extends React.Component {
 
   render() {
     return (
-      <div id="results">
+      <div className="results">
         {this.props.numLines ? this.props.numLines.map((character, index) => {
           return (
             <div className="charLineCount" key={index}>{character[1]} {character[0]}</div>

@@ -1,10 +1,24 @@
+#root {
+  margin: 0;
+  padding: 0;
+}
+
 body, p {
   font-family: 'Titillium Web', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: #2a2a2a;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  padding-bottom: 30px;
+  color: #6a6a6a;
 }
 
 input {
@@ -31,11 +45,29 @@ button {
 }
 
 .container {
-  width: 980px;
-  margin: 120px auto;
+  background: #fcfcfc;
+  height: 600px;
 }
 
-.search {
-  margin: auto;
+.innerContainer {
+  height: auto;
+  width: 980px;
+  padding: 100px;
+  text-align: center; 
+   
+}
+
+.accent {
+  height: 10px;
+  background-color: #10b3ca;
+}
+
+.results {
+  text-align: left;
+  font-size: 20px;
+}
+
+.footer {
   text-align: center;
+  margin-bottom: 60px;
 }
