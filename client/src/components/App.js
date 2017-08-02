@@ -52,35 +52,37 @@ class App extends React.Component {
     });
   }
 
-  findKey(jsonObj, searchTerm) {
+  findKey(jsonObj, searchTerm){
     var storage = [];
-
+    
     if (typeof(jsonObj) !== 'object') {
       return null;
     }
     if (jsonObj.hasOwnProperty(searchTerm)) {
       storage.push(jsonObj[searchTerm]);
-      return jsonObj[searchTerm];
     } 
     for (var key in jsonObj) {
       storage = storage.concat(this.findKey(jsonObj[key], searchTerm));
     }
+
+    storage = storage.filter(Boolean); // remove null values
     return storage;
   }
 
+  // Sum up number of lines per character in each speech chunk
   countLinesPerSpeech(speech) {
-    speech = speech.filter(Boolean);  // remove null values
     var speechLines = {};
-
-    speech.map((dialogue) => {
-      var character = ''+ dialogue["SPEAKER"];
-      character = this.toTitleCase(character);
-      if (speechLines[character]) {
-        speechLines[character] += dialogue["LINE"].length;
-      } else {
-        speechLines[character] = dialogue["LINE"].length;
-      }
-    });
+    for (var i = 0; i < speech.length; i++) {
+      speech[i].map((dialogue) => {
+        var character = ''+ dialogue["SPEAKER"];
+        character = this.toTitleCase(character);
+        if (speechLines[character]) {
+          speechLines[character] += dialogue["LINE"].length;
+        } else {
+          speechLines[character] = dialogue["LINE"].length;
+        }
+      });
+    }
     return speechLines;
   }
 
@@ -127,7 +129,6 @@ class App extends React.Component {
           { this.state.numLines ? 
             <Results numLines={this.state.numLines}/> : null 
           }
-
         </div>
       </div>
   )}
