@@ -2,7 +2,6 @@ import React from 'react';
 
 import Search from './Search';
 import Results from './Results';
-import Footer from './Footer';
 
 const http = require('http');
 const xml2js = require('xml2js'),
@@ -118,6 +117,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="accent"></div>
+          <span className="tinyNav"><a href="https://github.com/anyu/dialogue-parser" target="blank">github</a></span>
         <div className="innerContainer">
           <h1>Dialogue Parser</h1>
           <h3>Ever wonder how many lines each character in a Shakespearan play says?</h3>
@@ -130,7 +130,6 @@ class App extends React.Component {
           }
 
         </div>
-        <Footer/>
       </div>
   )}
 }

@@ -23,6 +23,13 @@ h3 {
   font-weight: 300;
 }
 
+a {
+  color: #6a6a6a;
+}
+a:hover {
+  text-decoration: none;
+}
+
 input {
   height: 50px;
   width: 500px;
@@ -46,6 +53,14 @@ button {
   cursor: pointer;  
 }
 
+li {
+  list-style: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+}
+
 .container {
   min-height: 200px;
 }
@@ -61,20 +76,21 @@ button {
   background-color: #10b3ca;
 }
 
+.tinyNav {
+  float: right;
+  margin: 15px 30px 0 0;
+  font-size: 14px;
+}
+
 .results {
-  width: 600px;
+  width: 360px;
   text-align: left;
   font-size: 20px;
-  margin: 40px auto;
+  margin: 60px auto 60px;
 }
 
-.footer {
-  text-align: center;
-  margin: 40px;
-}
-
-.character {
-  margin-left: 20px;
+.character, .lineCount {
+  margin-left: 40px;
 }
 
 .errMsg {
@@ -84,4 +100,6 @@ button {
   left: 230px;
   text-align: left;
 }
+
+
 
