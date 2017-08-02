@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server",
     "build": "webpack --watch",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "test": "node ./node_modules/mocha/bin/mocha --reporter spec"
   },
   "proxy": "http://localhost:4000",
   "keywords": [],
