@@ -18,7 +18,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className="Search">
+      <div className="search">
         <h1>Dialogue Parser</h1>
         <div className="form_container">
           <form onSubmit={(e)=> this.props.submitURL(this.state.inputURL, e)}>
