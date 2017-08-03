@@ -10,6 +10,7 @@ describe('Dialogue Parser', function() {
 
   //Tests convertXMLtoJSON function
   it('should call processJSON on success', function() {
+    var url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml';
     const spy = sinon.spy();
     sinon.stub(dialogueParser,'processJSON').callsFake(spy);
     dialogueParser.convertXMLtoJSON(url);
