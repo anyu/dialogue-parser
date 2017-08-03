@@ -31,7 +31,8 @@ class App extends React.Component {
   }
 
   convertXMLtoJSON(url) {
-    http.get(url, (res) => {
+    var cors_api_url = 'https://cors-anywhere.herokuapp.com/'; // proxy to get around CORS issue
+    http.get(cors_api_url + url, (res) => {
       var data = '';
       res.setEncoding('utf8');
       res.on('data', (chunk) => {
