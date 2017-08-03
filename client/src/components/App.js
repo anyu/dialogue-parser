@@ -146,10 +146,7 @@ class App extends React.Component {
         <div className="innerContainer">
           <h1>Dialogue Parser</h1>
           <h3>Who talked the most in Shakespearan plays? Find out right now.</h3>
-          <Search submitURL={this.submitURL}/>
-          { this.state.invalidURL ? 
-            <div className="errMsg">Invalid URL format. Please enter a URL starting with http://</div> : null
-          }          
+          <Search submitURL={this.submitURL} invalidURL={this.state.invalidURL} />
           { this.state.numLines ? 
             <Results numLines={this.state.numLines}/> : null 
           }

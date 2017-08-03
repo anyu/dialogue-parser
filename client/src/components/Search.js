@@ -25,6 +25,9 @@ class Search extends React.Component {
             <input type="text" placeholder="http://" onChange={this.captureInput}/>
             <button>Submit</button>
           </form>
+          { this.props.invalidURL ? 
+            <div className="errMsg">Invalid URL format. Please enter a URL starting with http://</div> : null
+          }          
         </div>
       </div>
     )
