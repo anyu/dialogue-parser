@@ -22,11 +22,11 @@ class Search extends React.Component {
       <div className="search">
         <div className="form_container">
           <form onSubmit={(e)=> this.props.submitURL(this.state.inputURL, e)}>
-            <input type="text" placeholder="http://" onChange={this.captureInput}/>
+            <input type="text" placeholder="Enter URL (must be an XML endpoint)" onChange={this.captureInput}/>
             <button>Submit</button>
           </form>
           { this.props.invalidURL ? 
-            <div className="errMsg">Invalid URL format. Please enter a URL starting with http://</div> : null
+            <div className="errMsg">Invalid URL. Please enter an XML endpoint.</div> : null
           }          
         </div>
       </div>

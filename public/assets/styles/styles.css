@@ -40,6 +40,11 @@ input {
   margin-right: 15px;
 }
 
+input::placeholder {
+  color: #9a9a9a;
+  font-size: 16px;
+}
+
 button {
   height: 50px;
   width: 120px;
@@ -66,7 +71,7 @@ li {
 }
 
 .innerContainer {
-  padding: 100px;
+  padding: 120px;
   text-align: center; 
    
 }
@@ -102,7 +107,7 @@ li {
   color: #e60000;
   padding-top: 20px;
   position: relative;
-  right: 130px;
+  right: 185px;
 }
 
 
