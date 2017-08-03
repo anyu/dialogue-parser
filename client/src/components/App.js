@@ -21,6 +21,7 @@ class App extends React.Component {
     this.findKey = this.findKey.bind(this);
     this.countLinesPerSpeech = this.countLinesPerSpeech.bind(this);
     this.toTitleCase = this.toTitleCase.bind(this);
+    this.splitOnComma = this.splitOnComma.bind(this);
     this.orderByCount = this.orderByCount.bind(this);
   }
 
@@ -78,7 +79,6 @@ class App extends React.Component {
     for (var key in jsonObj) {
       storage = storage.concat(this.findKey(jsonObj[key], searchTerm));
     }
-
     storage = storage.filter(Boolean); // remove null values
     return storage;
   }
@@ -97,6 +97,19 @@ class App extends React.Component {
         }
       });
     }
+
+    // account for characters talking at same time
+    for (var character in speechLines) {
+      if (character.indexOf(',') > -1) {
+        var multipleSpeakers = this.splitOnComma(character);
+        for (var i = 0; i < multipleSpeakers.length; i++) {
+          speechLines[this.toTitleCase(multipleSpeakers[i])] += speechLines[character];
+        }
+        delete speechLines[character]; 
+      } 
+      // filter out 'All' speakers
+      delete speechLines['All']; 
+    }
     return speechLines;
   }
 
@@ -105,6 +118,12 @@ class App extends React.Component {
     .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
     .join(' ')
     return formattedName;
+  }
+
+  // Split string by comma
+  splitOnComma(str) {
+    var words = str.split(',');
+    return words;
   }
 
   // Sort number of lines, descending

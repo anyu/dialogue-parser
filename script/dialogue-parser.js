@@ -81,6 +81,19 @@ exports.countLinesPerSpeech = (speech) => {
       }
     });
   }
+
+  // account for characters talking at same time
+  for (var character in speechLines) {
+    if (character.indexOf(',') > -1) {
+      var multipleSpeakers = this.splitOnComma(character);
+      for (var i = 0; i < multipleSpeakers.length; i++) {
+        speechLines[this.toTitleCase(multipleSpeakers[i])] += speechLines[character];
+      }
+      delete speechLines[character]; 
+    } 
+    // filter out 'All' speakers
+    delete speechLines['All']; 
+  }
   return speechLines;
 }
 
@@ -92,6 +105,12 @@ exports.toTitleCase = (name) => {
    .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
    .join(' ')
   return formattedName;
+}
+
+// Split string by comma
+exports.splitOnComma = (str) => {
+  var words = str.split(',');
+  return words;
 }
 
 // Sort number of lines, descending
@@ -108,9 +127,7 @@ exports.orderByCount = (obj) => {
 
 exports.printToConsole = (arr) => {
   arr.map((pair) => {
-    if (pair[0] !== 'All'){  // filter out 'All' speaker
-      console.log(pair[1] + ' ' + pair[0]);
-    }
+    console.log(pair[1] + ' ' + pair[0]);
   })
 }
 
