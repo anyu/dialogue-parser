@@ -2,7 +2,8 @@
 
 
 
-Given an XML-encoded datasource (currently only works for <a href="ibiblio.org/xml/examples/shakespeare" target="_blank">ibiblio formatted Shakespearan plays</a>), retrieve  the number of lines spoken by each character.
+Given an XML-encoded datasource (currently only works for [ibiblio formatted Shakespearan plays](ibiblio.org/xml/examples/shakespeare)), retrieve  the number of lines spoken by each character.
+
 
 ## Usage
 **App demo**
