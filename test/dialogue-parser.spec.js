@@ -9,8 +9,7 @@ const dialogueParser = require("../script/dialogue-parser");
 describe('Dialogue Parser', function() {
 
   //Tests convertXMLtoJSON function
-  it('should convert XML datasource to JSON', function() {
-    var url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml';
+  it('should call processJSON on success', function() {
     const spy = sinon.spy();
     sinon.stub(dialogueParser,'processJSON').callsFake(spy);
     dialogueParser.convertXMLtoJSON(url);
